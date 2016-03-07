@@ -1,7 +1,7 @@
-System.register(['./redux-adapter'], function (_export) {
+System.register(['aurelia-binding', './redux-adapter'], function (_export) {
   'use strict';
 
-  var ReduxObservationAdapter;
+  var ObserverLocator, ReduxObservationAdapter;
 
   _export('configure', configure);
 
@@ -13,7 +13,9 @@ System.register(['./redux-adapter'], function (_export) {
   }
 
   return {
-    setters: [function (_reduxAdapter) {
+    setters: [function (_aureliaBinding) {
+      ObserverLocator = _aureliaBinding.ObserverLocator;
+    }, function (_reduxAdapter) {
       ReduxObservationAdapter = _reduxAdapter.ReduxObservationAdapter;
     }],
     execute: function () {}

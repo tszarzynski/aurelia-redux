@@ -1,4 +1,4 @@
-define(['exports', './redux-adapter'], function (exports, _reduxAdapter) {
+define(['exports', 'aurelia-binding', './redux-adapter'], function (exports, _aureliaBinding, _reduxAdapter) {
   'use strict';
 
   Object.defineProperty(exports, '__esModule', {
@@ -8,7 +8,7 @@ define(['exports', './redux-adapter'], function (exports, _reduxAdapter) {
 
   function configure(frameworkConfig, config) {
     var container = frameworkConfig.container;
-    var observerLocator = container.get(ObserverLocator);
+    var observerLocator = container.get(_aureliaBinding.ObserverLocator);
     var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
     observerLocator.addAdapter(adapter);
   }

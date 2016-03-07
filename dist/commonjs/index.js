@@ -5,11 +5,13 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.configure = configure;
 
+var _aureliaBinding = require('aurelia-binding');
+
 var _reduxAdapter = require('./redux-adapter');
 
 function configure(frameworkConfig, config) {
   var container = frameworkConfig.container;
-  var observerLocator = container.get(ObserverLocator);
+  var observerLocator = container.get(_aureliaBinding.ObserverLocator);
   var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
   observerLocator.addAdapter(adapter);
 }
