@@ -1,7 +1,7 @@
 import {subscriberCollection} from 'aurelia-binding';
 
 @subscriberCollection()
-export class ReduxObserver {
+export default class ReduxObserver {
   constructor(obj, propertyName, descriptor, taskQueue) {
     this.obj = obj;
     this.propertyName = propertyName;

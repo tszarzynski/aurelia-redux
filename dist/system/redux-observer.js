@@ -99,7 +99,7 @@ System.register(['aurelia-binding'], function (_export) {
         return ReduxObserver;
       })();
 
-      _export('ReduxObserver', ReduxObserver);
+      _export('default', ReduxObserver);
     }
   };
 });

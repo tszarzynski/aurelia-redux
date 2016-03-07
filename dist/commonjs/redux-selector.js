@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.storeSelector = storeSelector;
+exports['default'] = storeSelector;
 
 function storeSelector(store, item) {
 
@@ -24,3 +24,5 @@ function storeSelector(store, item) {
 
   return obj;
 }
+
+module.exports = exports['default'];

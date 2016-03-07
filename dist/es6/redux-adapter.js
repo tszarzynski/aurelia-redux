@@ -1,6 +1,6 @@
 import { TaskQueue } from 'aurelia-task-queue';
 
-export class ReduxObservationAdapter {
+export default class ReduxObservationAdapter {
   static inject = [TaskQueue];
 
   constructor(taskQueue) {

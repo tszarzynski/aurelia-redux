@@ -38,7 +38,7 @@ System.register(['aurelia-task-queue'], function (_export) {
         return ReduxObservationAdapter;
       })();
 
-      _export('ReduxObservationAdapter', ReduxObservationAdapter);
+      _export('default', ReduxObservationAdapter);
     }
   };
 });

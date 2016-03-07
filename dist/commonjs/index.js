@@ -15,5 +15,5 @@ function configure(frameworkConfig, config) {
   var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
   observerLocator.addAdapter(adapter);
 
-  config.globalResources('./decorators', './redux-adapter', './redux-observer', './redux-selector');
+  config.globalResources('./decorators.js', './redux-adapter.js', './redux-observer.js', './redux-selector.js');
 }

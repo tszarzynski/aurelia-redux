@@ -1,7 +1,7 @@
 System.register([], function (_export) {
   'use strict';
 
-  _export('storeSelector', storeSelector);
+  _export('default', storeSelector);
 
   function storeSelector(store, item) {
 

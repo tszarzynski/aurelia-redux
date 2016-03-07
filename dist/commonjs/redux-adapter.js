@@ -36,4 +36,5 @@ var ReduxObservationAdapter = (function () {
   return ReduxObservationAdapter;
 })();
 
-exports.ReduxObservationAdapter = ReduxObservationAdapter;
+exports['default'] = ReduxObservationAdapter;
+module.exports = exports['default'];

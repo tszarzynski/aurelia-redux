@@ -1,10 +1,7 @@
-define(['exports'], function (exports) {
+define(['exports', 'module'], function (exports, module) {
   'use strict';
 
-  Object.defineProperty(exports, '__esModule', {
-    value: true
-  });
-  exports.storeSelector = storeSelector;
+  module.exports = storeSelector;
 
   function storeSelector(store, item) {
 

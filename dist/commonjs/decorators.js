@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.fromReduxStore = fromReduxStore;
+exports['default'] = fromReduxStore;
 
 function fromReduxStore(targetOrConfig, key, descriptor) {
 
@@ -45,3 +45,5 @@ function fromReduxStore(targetOrConfig, key, descriptor) {
 
   return deco;
 }
+
+module.exports = exports['default'];

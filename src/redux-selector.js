@@ -1,4 +1,4 @@
-export function storeSelector(store, item) {
+export default function storeSelector(store, item) {
 
   let obj = {};
   let name = '__redux__';

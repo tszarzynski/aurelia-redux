@@ -97,4 +97,5 @@ var ReduxObserver = (function () {
   return ReduxObserver;
 })();
 
-exports.ReduxObserver = ReduxObserver;
+exports['default'] = ReduxObserver;
+module.exports = exports['default'];

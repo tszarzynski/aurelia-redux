@@ -1,7 +1,7 @@
 System.register([], function (_export) {
   'use strict';
 
-  _export('fromReduxStore', fromReduxStore);
+  _export('default', fromReduxStore);
 
   function fromReduxStore(targetOrConfig, key, descriptor) {
 
