@@ -1,20 +1,21 @@
 System.register(['./redux-adapter'], function (_export) {
-    'use strict';
+  'use strict';
 
-    var ReduxObservationAdapter;
+  var ReduxObservationAdapter;
 
-    _export('configure', configure);
+  _export('configure', configure);
 
-    function configure(rameworkConfig, config) {
-        var container = frameworkConfig.container;
-        var adapter = container.get(ReduxObservationAdapter);
-        observerLocator.addAdapter(adapter);
-    }
+  function configure(rameworkConfig, config) {
+    var container = frameworkConfig.container;
+    var observerLocator = container.get(ObserverLocator);
+    var adapter = container.get(ReduxObservationAdapter);
+    observerLocator.addAdapter(adapter);
+  }
 
-    return {
-        setters: [function (_reduxAdapter) {
-            ReduxObservationAdapter = _reduxAdapter.ReduxObservationAdapter;
-        }],
-        execute: function () {}
-    };
+  return {
+    setters: [function (_reduxAdapter) {
+      ReduxObservationAdapter = _reduxAdapter.ReduxObservationAdapter;
+    }],
+    execute: function () {}
+  };
 });
