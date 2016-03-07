@@ -10,6 +10,8 @@ System.register(['aurelia-binding', './redux-adapter'], function (_export) {
     var observerLocator = container.get(ObserverLocator);
     var adapter = container.get(ReduxObservationAdapter);
     observerLocator.addAdapter(adapter);
+
+    config.globalResources('./decorators', './redux-adapter', './redux-observer', './redux-selector');
   }
 
   return {

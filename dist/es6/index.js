@@ -6,4 +6,6 @@ export function configure(frameworkConfig, config) {
   let observerLocator = container.get(ObserverLocator);
   let adapter = container.get(ReduxObservationAdapter);
   observerLocator.addAdapter(adapter);
+
+  config.globalResources('./decorators', './redux-adapter', './redux-observer', './redux-selector');
 }

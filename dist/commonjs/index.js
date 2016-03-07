@@ -14,4 +14,6 @@ function configure(frameworkConfig, config) {
   var observerLocator = container.get(_aureliaBinding.ObserverLocator);
   var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
   observerLocator.addAdapter(adapter);
+
+  config.globalResources('./decorators', './redux-adapter', './redux-observer', './redux-selector');
 }
