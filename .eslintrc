@@ -2,5 +2,8 @@
   "extends": "./node_modules/aurelia-tools/.eslintrc",
   "rules": {
     "no-alert": 0,
+    "space-after-keywords": 0,
+    "space-return-throw-case": 0,
+    "padded-blocks": 0
   }
 }

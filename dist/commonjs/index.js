@@ -7,7 +7,7 @@ exports.configure = configure;
 
 var _reduxAdapter = require('./redux-adapter');
 
-function configure(rameworkConfig, config) {
+function configure(frameworkConfig, config) {
   var container = frameworkConfig.container;
   var observerLocator = container.get(ObserverLocator);
   var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
