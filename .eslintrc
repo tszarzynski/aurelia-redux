@@ -4,6 +4,7 @@
     "no-alert": 0,
     "space-after-keywords": 0,
     "space-return-throw-case": 0,
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "no-else-return": 1
   }
 }

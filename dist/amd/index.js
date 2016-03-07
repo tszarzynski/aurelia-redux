@@ -1,17 +1,25 @@
-define(['exports', 'aurelia-binding', './redux-adapter'], function (exports, _aureliaBinding, _reduxAdapter) {
+define(['exports', 'aurelia-framework', './redux-adapter', './decorators', './redux-selector'], function (exports, _aureliaFramework, _reduxAdapter, _decorators, _reduxSelector) {
   'use strict';
 
   Object.defineProperty(exports, '__esModule', {
     value: true
   });
   exports.configure = configure;
+  Object.defineProperty(exports, 'fromReduxStore', {
+    enumerable: true,
+    get: function get() {
+      return _decorators.fromReduxStore;
+    }
+  });
+  Object.defineProperty(exports, 'storeSelector', {
+    enumerable: true,
+    get: function get() {
+      return _reduxSelector.storeSelector;
+    }
+  });
 
-  function configure(frameworkConfig, config) {
+  function configure(frameworkConfig) {
     var container = frameworkConfig.container;
-    var observerLocator = container.get(_aureliaBinding.ObserverLocator);
-    var adapter = container.get(_reduxAdapter.ReduxObservationAdapter);
-    observerLocator.addAdapter(adapter);
-
-    config.globalResources('./decorators.js', './redux-adapter.js', './redux-observer.js', './redux-selector.js');
+    container.get(_aureliaFramework.ObserverLocator).addAdapter(container.get(_reduxAdapter.ReduxObservationAdapter));
   }
 });

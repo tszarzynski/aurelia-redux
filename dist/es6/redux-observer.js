@@ -1,7 +1,7 @@
-import {subscriberCollection} from 'aurelia-binding';
+import {subscriberCollection} from 'aurelia-framework';
 
 @subscriberCollection()
-export default class ReduxObserver {
+export class ReduxObserver {
   constructor(obj, propertyName, descriptor, taskQueue) {
     this.obj = obj;
     this.propertyName = propertyName;
@@ -50,6 +50,7 @@ export default class ReduxObserver {
   subscribe(context, callable) {
 
     if (!this.observing) {
+
       this.setValue = this.setterValue;
       this.getValue = this.getterValue;
 
@@ -60,8 +61,8 @@ export default class ReduxObserver {
           get: this.getValue.bind(this),
           set: this.setValue.bind(this)
         });
-      } catch (_) {
-        throw new Error('Cannot override setters!');
+      } catch (e) {
+        console.error(e);
       }
     }
 

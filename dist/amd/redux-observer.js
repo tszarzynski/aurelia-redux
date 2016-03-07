@@ -1,5 +1,9 @@
-define(['exports', 'module', 'aurelia-binding'], function (exports, module, _aureliaBinding) {
+define(['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   'use strict';
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
 
   var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -63,6 +67,7 @@ define(['exports', 'module', 'aurelia-binding'], function (exports, module, _aur
       value: function subscribe(context, callable) {
 
         if (!this.observing) {
+
           this.setValue = this.setterValue;
           this.getValue = this.getterValue;
 
@@ -73,8 +78,8 @@ define(['exports', 'module', 'aurelia-binding'], function (exports, module, _aur
               get: this.getValue.bind(this),
               set: this.setValue.bind(this)
             });
-          } catch (_) {
-            throw new Error('Cannot override setters!');
+          } catch (e) {
+            console.error(e);
           }
         }
 
@@ -88,9 +93,9 @@ define(['exports', 'module', 'aurelia-binding'], function (exports, module, _aur
     }]);
 
     var _ReduxObserver = ReduxObserver;
-    ReduxObserver = (0, _aureliaBinding.subscriberCollection)()(ReduxObserver) || ReduxObserver;
+    ReduxObserver = (0, _aureliaFramework.subscriberCollection)()(ReduxObserver) || ReduxObserver;
     return ReduxObserver;
   })();
 
-  module.exports = ReduxObserver;
+  exports.ReduxObserver = ReduxObserver;
 });

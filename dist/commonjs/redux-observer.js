@@ -8,7 +8,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _aureliaBinding = require('aurelia-binding');
+var _aureliaFramework = require('aurelia-framework');
 
 var ReduxObserver = (function () {
   function ReduxObserver(obj, propertyName, descriptor, taskQueue) {
@@ -68,6 +68,7 @@ var ReduxObserver = (function () {
     value: function subscribe(context, callable) {
 
       if (!this.observing) {
+
         this.setValue = this.setterValue;
         this.getValue = this.getterValue;
 
@@ -78,8 +79,8 @@ var ReduxObserver = (function () {
             get: this.getValue.bind(this),
             set: this.setValue.bind(this)
           });
-        } catch (_) {
-          throw new Error('Cannot override setters!');
+        } catch (e) {
+          console.error(e);
         }
       }
 
@@ -93,9 +94,8 @@ var ReduxObserver = (function () {
   }]);
 
   var _ReduxObserver = ReduxObserver;
-  ReduxObserver = (0, _aureliaBinding.subscriberCollection)()(ReduxObserver) || ReduxObserver;
+  ReduxObserver = (0, _aureliaFramework.subscriberCollection)()(ReduxObserver) || ReduxObserver;
   return ReduxObserver;
 })();
 
-exports['default'] = ReduxObserver;
-module.exports = exports['default'];
+exports.ReduxObserver = ReduxObserver;

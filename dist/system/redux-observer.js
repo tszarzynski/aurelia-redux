@@ -1,4 +1,4 @@
-System.register(['aurelia-binding'], function (_export) {
+System.register(['aurelia-framework'], function (_export) {
   'use strict';
 
   var subscriberCollection, ReduxObserver;
@@ -8,8 +8,8 @@ System.register(['aurelia-binding'], function (_export) {
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
   return {
-    setters: [function (_aureliaBinding) {
-      subscriberCollection = _aureliaBinding.subscriberCollection;
+    setters: [function (_aureliaFramework) {
+      subscriberCollection = _aureliaFramework.subscriberCollection;
     }],
     execute: function () {
       ReduxObserver = (function () {
@@ -70,6 +70,7 @@ System.register(['aurelia-binding'], function (_export) {
           value: function subscribe(context, callable) {
 
             if (!this.observing) {
+
               this.setValue = this.setterValue;
               this.getValue = this.getterValue;
 
@@ -80,8 +81,8 @@ System.register(['aurelia-binding'], function (_export) {
                   get: this.getValue.bind(this),
                   set: this.setValue.bind(this)
                 });
-              } catch (_) {
-                throw new Error('Cannot override setters!');
+              } catch (e) {
+                console.error(e);
               }
             }
 
@@ -99,7 +100,7 @@ System.register(['aurelia-binding'], function (_export) {
         return ReduxObserver;
       })();
 
-      _export('default', ReduxObserver);
+      _export('ReduxObserver', ReduxObserver);
     }
   };
 });

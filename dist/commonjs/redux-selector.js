@@ -3,18 +3,21 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports['default'] = storeSelector;
+exports.storeSelector = storeSelector;
 
 function storeSelector(store, item) {
 
   var obj = {};
   var name = '__redux__';
 
-  Object.defineProperty(obj, name, {
-    writable: true,
-    configurable: true,
-    enumerable: false
-  });
+  if (!obj.hasOwnProperty(name)) {
+
+    Object.defineProperty(obj, name, {
+      writable: true,
+      configurable: true,
+      enumerable: true
+    });
+  }
 
   var update = function update() {
     obj.__redux__ = Object.assign(obj, store.getState()[item]);
@@ -24,5 +27,3 @@ function storeSelector(store, item) {
 
   return obj;
 }
-
-module.exports = exports['default'];

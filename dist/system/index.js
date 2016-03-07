@@ -1,24 +1,24 @@
-System.register(['aurelia-binding', './redux-adapter'], function (_export) {
+System.register(['aurelia-framework', './redux-adapter', './decorators', './redux-selector'], function (_export) {
   'use strict';
 
   var ObserverLocator, ReduxObservationAdapter;
 
   _export('configure', configure);
 
-  function configure(frameworkConfig, config) {
+  function configure(frameworkConfig) {
     var container = frameworkConfig.container;
-    var observerLocator = container.get(ObserverLocator);
-    var adapter = container.get(ReduxObservationAdapter);
-    observerLocator.addAdapter(adapter);
-
-    config.globalResources('./decorators.js', './redux-adapter.js', './redux-observer.js', './redux-selector.js');
+    container.get(ObserverLocator).addAdapter(container.get(ReduxObservationAdapter));
   }
 
   return {
-    setters: [function (_aureliaBinding) {
-      ObserverLocator = _aureliaBinding.ObserverLocator;
+    setters: [function (_aureliaFramework) {
+      ObserverLocator = _aureliaFramework.ObserverLocator;
     }, function (_reduxAdapter) {
       ReduxObservationAdapter = _reduxAdapter.ReduxObservationAdapter;
+    }, function (_decorators) {
+      _export('fromReduxStore', _decorators.fromReduxStore);
+    }, function (_reduxSelector) {
+      _export('storeSelector', _reduxSelector.storeSelector);
     }],
     execute: function () {}
   };

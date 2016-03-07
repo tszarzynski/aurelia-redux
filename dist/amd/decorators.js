@@ -1,7 +1,10 @@
-define(['exports', 'module'], function (exports, module) {
+define(['exports'], function (exports) {
   'use strict';
 
-  module.exports = fromReduxStore;
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  exports.fromReduxStore = fromReduxStore;
 
   function fromReduxStore(targetOrConfig, key, descriptor) {
 

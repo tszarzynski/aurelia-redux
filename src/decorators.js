@@ -1,7 +1,6 @@
+export function fromReduxStore(targetOrConfig, key, descriptor) {
 
-export default function fromReduxStore(targetOrConfig, key, descriptor) {
-
-  let deco = (target, key2, descriptor2) => {
+  let deco = function(target, key2, descriptor2) {
     let innerPropertyName = '__redux__' + key2;
     let babel = descriptor2 !== undefined;
 

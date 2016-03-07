@@ -1,11 +1,10 @@
-import {ObserverLocator} from 'aurelia-binding';
+import {ObserverLocator} from 'aurelia-framework';
 import {ReduxObservationAdapter} from './redux-adapter';
 
-export function configure(frameworkConfig, config) {
-  let container = frameworkConfig.container;
-  let observerLocator = container.get(ObserverLocator);
-  let adapter = container.get(ReduxObservationAdapter);
-  observerLocator.addAdapter(adapter);
+export {fromReduxStore} from './decorators';
+export {storeSelector} from './redux-selector';
 
-  config.globalResources('./decorators.js', './redux-adapter.js', './redux-observer.js', './redux-selector.js');
+export function configure(frameworkConfig) {
+  let container = frameworkConfig.container;
+  container.get(ObserverLocator).addAdapter(container.get(ReduxObservationAdapter));
 }

@@ -8,17 +8,13 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _aureliaTaskQueue = require('aurelia-task-queue');
+var _aureliaFramework = require('aurelia-framework');
+
+var _reduxObserver = require('./redux-observer');
 
 var ReduxObservationAdapter = (function () {
-  _createClass(ReduxObservationAdapter, null, [{
-    key: 'inject',
-    value: [_aureliaTaskQueue.TaskQueue],
-    enumerable: true
-  }]);
-
   function ReduxObservationAdapter(taskQueue) {
-    _classCallCheck(this, ReduxObservationAdapter);
+    _classCallCheck(this, _ReduxObservationAdapter);
 
     this.taskQueue = taskQueue;
   }
@@ -26,15 +22,23 @@ var ReduxObservationAdapter = (function () {
   _createClass(ReduxObservationAdapter, [{
     key: 'getObserver',
     value: function getObserver(object, propertyName, descriptor) {
-      if (descriptor.get.store) {
-        return new ReduxObserver(object, propertyName, descriptor, this.taskQueue);
+
+      if (object[propertyName] && descriptor.get.store) {
+        return new _reduxObserver.ReduxObserver(object, propertyName, descriptor, this.taskQueue);
+      } else {
+        delete descriptor.get;
+        delete descriptor.set;
+        descriptor.writable = true;
+        Object.defineProperty(object, propertyName, descriptor);
+
+        return null;
       }
-      return null;
     }
   }]);
 
+  var _ReduxObservationAdapter = ReduxObservationAdapter;
+  ReduxObservationAdapter = (0, _aureliaFramework.inject)(_aureliaFramework.TaskQueue)(ReduxObservationAdapter) || ReduxObservationAdapter;
   return ReduxObservationAdapter;
 })();
 
-exports['default'] = ReduxObservationAdapter;
-module.exports = exports['default'];
+exports.ReduxObservationAdapter = ReduxObservationAdapter;
