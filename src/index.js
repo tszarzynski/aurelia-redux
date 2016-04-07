@@ -1,10 +1,4 @@
-import {ObserverLocator} from 'aurelia-framework';
-import {ReduxObservationAdapter} from './redux-adapter';
-
 export {fromReduxStore} from './decorators';
-export {storeSelector} from './redux-selector';
+export {observerMiddleware} from './redux-observer-middleware';
+export {observableStore, selectableStore} from './mixins';
 
-export function configure(frameworkConfig) {
-  let container = frameworkConfig.container;
-  container.get(ObserverLocator).addAdapter(container.get(ReduxObservationAdapter));
-}

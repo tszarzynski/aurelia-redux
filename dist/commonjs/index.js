@@ -3,11 +3,6 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.configure = configure;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _reduxAdapter = require('./redux-adapter');
 
 var _decorators = require('./decorators');
 
@@ -18,16 +13,26 @@ Object.defineProperty(exports, 'fromReduxStore', {
   }
 });
 
-var _reduxSelector = require('./redux-selector');
+var _reduxObserverMiddleware = require('./redux-observer-middleware');
 
-Object.defineProperty(exports, 'storeSelector', {
+Object.defineProperty(exports, 'observerMiddleware', {
   enumerable: true,
   get: function get() {
-    return _reduxSelector.storeSelector;
+    return _reduxObserverMiddleware.observerMiddleware;
   }
 });
 
-function configure(frameworkConfig) {
-  var container = frameworkConfig.container;
-  container.get(_aureliaFramework.ObserverLocator).addAdapter(container.get(_reduxAdapter.ReduxObservationAdapter));
-}
+var _mixins = require('./mixins');
+
+Object.defineProperty(exports, 'observableStore', {
+  enumerable: true,
+  get: function get() {
+    return _mixins.observableStore;
+  }
+});
+Object.defineProperty(exports, 'selectableStore', {
+  enumerable: true,
+  get: function get() {
+    return _mixins.selectableStore;
+  }
+});

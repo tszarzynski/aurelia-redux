@@ -1,51 +1,66 @@
-System.register([], function (_export) {
-  'use strict';
+System.register(['./redux-observer'], function (_export) {
+    'use strict';
 
-  _export('fromReduxStore', fromReduxStore);
+    var ReduxObserver;
 
-  function fromReduxStore(targetOrConfig, key, descriptor) {
+    _export('fromReduxStore', fromReduxStore);
 
-    var deco = function deco(target, key2, descriptor2) {
-      var innerPropertyName = '__redux__' + key2;
-      var babel = descriptor2 !== undefined;
+    function fromReduxStore(targetOrConfig, key, descriptor) {
 
-      if (babel) {
-        if (typeof descriptor2.initializer === 'function') {
-          target[innerPropertyName] = descriptor2.initializer();
+        var decorate = function decorate(target, key2, descriptor2) {
+
+            var innerPropertyName = '__redux__' + key;
+            var babel = descriptor2 !== undefined;
+
+            if (babel) {
+                if (typeof descriptor2.initializer === 'function') {
+                    target[innerPropertyName] = descriptor2.initializer();
+                }
+            } else {
+                descriptor2 = {};
+            }
+
+            delete descriptor2.writable;
+            delete descriptor2.initializer;
+
+            function reduxGetter() {
+
+                if (this[innerPropertyName] !== undefined) {
+                    return this[innerPropertyName].selector(this[innerPropertyName].store.getState());
+                }
+
+                return this[innerPropertyName];
+            }
+
+            function reduxSetter(newValue) {
+                this[innerPropertyName] = newValue;
+            }
+            reduxGetter.getObserver = function (o) {
+                return new ReduxObserver(o, key2, descriptor2);
+            };
+
+            descriptor2.get = reduxGetter;
+            descriptor2.set = reduxSetter;
+
+            if (!babel) {
+                Object.defineProperty(target, key2, descriptor2);
+            }
+        };
+
+        if (key) {
+            var target = targetOrConfig;
+
+            targetOrConfig = null;
+            return decorate(target, key, descriptor);
         }
-      } else {
-        descriptor2 = {};
-      }
 
-      delete descriptor2.writable;
-      delete descriptor2.initializer;
-
-      descriptor2.get = function () {
-        return this[innerPropertyName];
-      };
-      descriptor2.set = function (newValue) {
-        this[innerPropertyName] = newValue;
-      };
-
-      descriptor2.get.store = true;
-      descriptor2.set.store = true;
-
-      if (!babel) {
-        Object.defineProperty(target, key2, descriptor2);
-      }
-    };
-
-    if (key) {
-      var target = targetOrConfig;
-      targetOrConfig = null;
-      return deco(target, key, descriptor);
+        return decorate;
     }
 
-    return deco;
-  }
-
-  return {
-    setters: [],
-    execute: function () {}
-  };
+    return {
+        setters: [function (_reduxObserver) {
+            ReduxObserver = _reduxObserver.ReduxObserver;
+        }],
+        execute: function () {}
+    };
 });

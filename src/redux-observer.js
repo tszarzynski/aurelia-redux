@@ -2,75 +2,42 @@ import {subscriberCollection} from 'aurelia-framework';
 
 @subscriberCollection()
 export class ReduxObserver {
-  constructor(obj, propertyName, descriptor, taskQueue) {
-    this.obj = obj;
-    this.propertyName = propertyName;
-    this.descriptor = descriptor;
-    this.taskQueue = taskQueue;
-
-    this.queued = false;
-    this.observing = false;
-  }
-
-  getValue() {
-    return this.obj[this.propertyName];
-  }
-
-  setValue(newValue) {
-    this.obj[this.propertyName] = newValue;
-  }
-
-  getterValue() {
-    return this.currentValue;
-  }
-
-  setterValue(newValue) {
-    let oldValue = this.currentValue;
-
-    if (oldValue !== newValue) {
-      if (!this.queued) {
-        this.oldValue = oldValue;
-        this.queued = true;
-        this.taskQueue.queueMicroTask(this);
-      }
+    constructor(obj, propertyName, descriptor) {
+        this.obj = obj;
+        this.propertyName = propertyName;
+        this.descriptor = descriptor;
     }
 
-    this.currentValue = newValue;
-  }
+    // getValue() {
+    //     return this.obj[this.propertyName];
+    // }
 
-  call(context) {
-    let oldValue = this.oldValue;
-    let newValue = this.currentValue;
+    // setValue(newValue) {
+    //     this.obj[this.propertyName] = newValue;
+    // }
 
-    this.queued = false;
+    subscribe(context, callable) {
 
-    this.callSubscribers(newValue, oldValue);
-  }
+        if (!this.hasSubscribers()) {
+            let innerProperty = this.obj['__redux__' + this.propertyName];
 
-  subscribe(context, callable) {
+            if (innerProperty !== undefined) {
+                let store = innerProperty.store;
+                let selector = innerProperty.selector;
 
-    if (!this.observing) {
+                this.unobserve = store.observe((newValue, oldValue) => {
+                    this.callSubscribers(newValue, oldValue);
+                }, selector);
+            }
+        }
 
-      this.setValue = this.setterValue;
-      this.getValue = this.getterValue;
-
-      try {
-        Object.defineProperty(this.obj[this.propertyName], '__redux__', {
-          configurable: true,
-          enumerable: true,
-          get: this.getValue.bind(this),
-          set: this.setValue.bind(this)
-        });
-      } catch (e) {
-        console.error(e);
-      }
+        this.addSubscriber(context, callable);
     }
 
-    this.addSubscriber(context, callable);
-  }
+    unsubscribe(context, callable) {
+        if (this.removeSubscriber(context, callable) && !this.hasSubscribers()) {
+            this.unobserve();
+        }
 
-  unsubscribe(context, callable) {
-    this.removeSubscriber(context, callable);
-  }
-
+    }
 }
